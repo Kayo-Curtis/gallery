@@ -1,9 +1,11 @@
+require('dotenv').config(); // Make sure to require dotenv if you're using a .env file
+
 var config = {}
 
-// Update to have your correct username and password
 config.mongoURI = {
-    production: 'mongodb+srv://<USERNAME>:<PASSWORD>@gallery.wc344.mongodb.net/darkroom?retryWrites=true&w=majority',
-    development: 'mongodb+srv://<USERNAME>:<PASSWORD>@gallery.wc344.mongodb.net/darkroom-dev?retryWrites=true&w=majority',
-    test: 'mongodb+srv://<USERNAME>:<PASSWORD>@gallery.wc344.mongodb.net/darkroom-test?retryWrites=true&w=majority',
+    production: process.env.MONGO_URI_PRODUCTION,
+    development: process.env.MONGO_URI_DEVELOPMENT,
+    test: process.env.MONGO_URI_TEST,
 }
+
 module.exports = config;
