@@ -20,6 +20,20 @@ pipeline {
       }
     }
   }
+  
+  stage('Test') {
+  steps {
+    sh 'npm test'
+  }
+}
+post {
+  failure {
+    mail to: 'kayocurtiswilson@gmail.com',
+         subject: "Build Failed: ${env.JOB_NAME}",
+         body: "Check Jenkins for details: ${env.BUILD_URL}"
+  }
+}
+
 
   triggers {
     githubPush()
