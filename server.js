@@ -9,9 +9,6 @@ const env = process.env.NODE_ENV || 'development';
 let index = require('./routes/index');
 let image = require('./routes/image');
 
-// Initializing the app
-const app = express();
-
 // MongoDB connection
 mongoose.connect(config.mongoURI[env])
   .then(() => console.log('Database connected successfully'))
