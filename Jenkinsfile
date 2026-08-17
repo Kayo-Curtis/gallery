@@ -1,3 +1,11 @@
+def notifySlack(String status, String color) {
+  withCredentials([string(credentialsId: 'slack-webhook-url', variable: 'SLACK_WEBHOOK_URL')]) {
+    env.SLACK_STATUS = status
+    env.SLACK_COLOR = color
+    sh 'curl -sS -X POST -H "Content-Type: application/json" --data "{\\"attachments\\":[{\\"color\\":\\"$SLACK_COLOR\\",\\"text\\":\\"$SLACK_STATUS: $JOB_NAME #$BUILD_NUMBER ($BUILD_URL)\\"}]}" "$SLACK_WEBHOOK_URL"'
+  }
+}
+
 pipeline {
   agent any
   environment {
@@ -43,7 +51,11 @@ pipeline {
     }
   }
   post {
+    success {
+      notifySlack('SUCCESS', 'good')
+    }
     failure {
+      notifySlack('FAILURE', 'danger')
       mail to: 'kayocurtiswilson@gmail.com',
            subject: "Build Failed: ${env.JOB_NAME}",
            body: "Check Jenkins for details: ${env.BUILD_URL}"
