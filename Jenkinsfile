@@ -19,13 +19,14 @@ pipeline {
         echo 'Deploying to Render here is the url https://moringa-ip-1-gallery.onrender.com/'
       }
     }
-  }
   
-  stage('Test') {
-  steps {
-    sh 'npm test'
+  
+    stage('Test') {
+      steps {
+        sh 'npm test'
+      }
+    }
   }
-}
 post {
   failure {
     mail to: 'kayocurtiswilson@gmail.com',
