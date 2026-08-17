@@ -1,24 +1,22 @@
 pipeline {
   agent any
+  tools {
+    nodejs 'node20'
+  }
   stages {
     stage('Install') {
       steps {
-        sh 'npm install'
-      }
-    }
-    stage('Build') {
-      steps {
-        sh 'npm start'
-      }
-    }
-    stage('Deploy') {
-      steps {
-        echo 'Deploying to Render here is the url https://moringa-ip-1-gallery.onrender.com/'
+        sh 'npm ci'
       }
     }
     stage('Test') {
       steps {
         sh 'npm test'
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deploying to Render here is the url https://moringa-ip-1-gallery.onrender.com/'
       }
     }
   }
