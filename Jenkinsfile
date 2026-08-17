@@ -9,7 +9,7 @@ def notifySlack(String status, String color) {
 pipeline {
   agent any
   environment {
-    NODE_VERSION = '20.20.2'
+    NODE_VERSION = '20.20.2'// had a challenge with node installation
     NODE_DIR = "${WORKSPACE}/.node"
   }
   stages {
@@ -56,7 +56,7 @@ pipeline {
     }
     failure {
       notifySlack('FAILURE', 'danger')
-      mail to: 'kayocurtiswilson@gmail.com',
+      mail to: 'kayocurtiswilson@gmail.com',// used gmail smtp plus app password
            subject: "Build Failed: ${env.JOB_NAME}",
            body: "Check Jenkins for details: ${env.BUILD_URL}"
     }
@@ -65,4 +65,3 @@ pipeline {
     githubPush()
   }
 }
-
