@@ -4,13 +4,13 @@ pipeline {
   stages {
     stage('Install') {
       steps {
-        sh 'yarn install'
+        sh 'npm install'
       }
     }
 
     stage('Build') {
       steps {
-        sh 'yarn start' //I prefer the yarn package manger to npm
+        sh 'npm start'
       }
     }
 
